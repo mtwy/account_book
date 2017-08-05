@@ -26,12 +26,33 @@ public class BillCategoryController {
 	 */
 	@PostMapping(value="/getall", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String login(){
+	public String getAll(){
 		
 		ReturnSimpleHandle handle = null;
 		try {
 			JSONObject parameter = RequestContent.receiveParameter();
 			handle = billCategoryServiceImpl.getAll(parameter);
+		} catch (LoongException e) {
+			handle = ReturnSimpleHandle.createServerError(e.getMessage());
+		}  catch (Exception e) {
+			e.printStackTrace();
+			handle = ReturnPaginateHandle.createServerError();
+		}
+		return handle.toJson();
+	}
+	
+	/**
+	 * 一对多关联查询获取所有
+	 * @return
+	 */
+	@PostMapping(value="/getallwithrelations", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getAllWithRelations(){
+		
+		ReturnSimpleHandle handle = null;
+		try {
+			JSONObject parameter = RequestContent.receiveParameter();
+			handle = billCategoryServiceImpl.getAllWithRelations(parameter);
 		} catch (LoongException e) {
 			handle = ReturnSimpleHandle.createServerError(e.getMessage());
 		}  catch (Exception e) {

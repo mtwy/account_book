@@ -134,4 +134,33 @@
     <include refid="Base_Column_List" />
     from t_bill_category
   </select>
+  
+  <!-- 根据parentId获取所有子类别 -->
+  <select id="selectAllChildById" parameterType="map" resultMap="BaseResultMap">
+    select 
+    	<include refid="Base_Column_List" />
+    from t_bill_category
+    where parent_id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  
+  <!-- 一对多关联查询 -->
+  	<select id="selectRelationsWithChildren" parameterType="map" resultMap="BaseResultMap1">
+		select 
+	    	<include refid="Base_Column_List" />
+	    from t_bill_category
+	</select>
+	
+	<!-- 类别==1对多==视频 -->
+	<resultMap id="BaseResultMap1" type="org.loong.acb.server.model.BillCategory">
+	    <id column="id" jdbcType="BIGINT" property="id" />
+	    <result column="thumb" jdbcType="VARCHAR" property="thumb" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="parent_id" jdbcType="BIGINT" property="parentId" />
+	    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+	    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+	    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+	    <result column="status" jdbcType="VARCHAR" property="status" />
+		<collection property="billCategories" ofType="org.loong.acb.server.model.BillCategory" column="id" select="org.loong.acb.server.dao.BillCategoryDao.selectAllChildById"></collection>
+	</resultMap>
 </mapper>

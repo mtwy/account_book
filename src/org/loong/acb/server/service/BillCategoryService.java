@@ -15,4 +15,11 @@ public interface BillCategoryService {
 	 */
 	ReturnSimpleHandle getAll(JSONObject parameter) throws LoongException;
 
+	/**
+	 * 一对多关联查询获取所有
+	 * @param parameter
+	 * @return
+	 */
+	ReturnSimpleHandle getAllWithRelations(JSONObject parameter) throws LoongException;
+
 }

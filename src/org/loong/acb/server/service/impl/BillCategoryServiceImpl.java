@@ -19,7 +19,7 @@ public class BillCategoryServiceImpl implements BillCategoryService{
 	private BillCategoryDao billCategoryDao;
 	
 	/**
-	 * 登录
+	 * 获取所有
 	 */
 	@Override
 	public ReturnSimpleHandle getAll(JSONObject parameter) throws LoongException {
@@ -27,6 +27,20 @@ public class BillCategoryServiceImpl implements BillCategoryService{
 		ReturnSimpleHandle handle = ReturnSimpleHandle.createHandle();
 		
 		List<BillCategory> data = billCategoryDao.selectAll(parameter);
+		
+		handle.setData(data);
+		return handle;
+	}
+
+	/**
+	 * 一对多关联查询获取所有
+	 */
+	@Override
+	public ReturnSimpleHandle getAllWithRelations(JSONObject parameter) throws LoongException {
+
+		ReturnSimpleHandle handle = ReturnSimpleHandle.createHandle();
+		
+		List<BillCategory> data = billCategoryDao.selectRelationsWithChildren(parameter);
 		
 		handle.setData(data);
 		return handle;

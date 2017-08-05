@@ -21,5 +21,24 @@ public interface BillCategoryDao {
 
     int updateByPrimaryKey(BillCategory record);
     
+    /**
+     * 查询所有
+     * @param parameter
+     * @return
+     */
     List<BillCategory> selectAll(JSONObject parameter);
+    
+    /**
+     * 根据id获取所有子类别
+     * @param parameter
+     * @return
+     */
+    List<BillCategory> selectAllChildById(JSONObject parameter);
+    
+    /**
+     * 一对多查询所有类别
+     * @param parameter
+     * @return
+     */
+    List<BillCategory> selectRelationsWithChildren(JSONObject parameter);
 }

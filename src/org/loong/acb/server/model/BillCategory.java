@@ -1,6 +1,7 @@
 package org.loong.acb.server.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class BillCategory {
     private Long id;
@@ -18,6 +19,8 @@ public class BillCategory {
     private Date updatedAt;
 
     private String status;
+    
+    private List<BillCategory> billCategories;
 
     public Long getId() {
         return id;
@@ -82,4 +85,12 @@ public class BillCategory {
     public void setStatus(String status) {
         this.status = status;
     }
+
+	public List<BillCategory> getBillCategories() {
+		return billCategories;
+	}
+
+	public void setBillCategories(List<BillCategory> billCategories) {
+		this.billCategories = billCategories;
+	}
 }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+	
+	<!-- enable autowire -->
+    <context:annotation-config />
+    <aop:aspectj-autoproxy/>
+	
+ 	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->
+	<context:component-scan base-package="org.loong" />
+	
+	<import resource="conf/properties.xml"/>
+	<import resource="conf/init.xml"/>
+	
+	<!-- 引入jdbc配置文件 -->
+	<!-- <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+      			<value>classpath:jdbc.properties</value>
+      		</list>
+    	</property>
+    	<property name="ignoreUnresolvablePlaceholders" value="true" />   
+	</bean> -->
+
+	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}"></property>
+  		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	
+		<property name="initialPoolSize" value="10"></property>
+		<property name="minPoolSize" value="10"></property>
+		<property name="maxPoolSize" value="30"></property>
+		<property name="acquireIncrement" value="5"></property>
+		<property name="maxIdleTime" value="0"></property>
+		<property name="acquireRetryAttempts" value="30"></property>
+		<property name="autoCommitOnClose" value="false"></property>
+		<property name="idleConnectionTestPeriod" value="240"></property>
+	</bean> -->
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="batchUpdate*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="query*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="call*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config proxy-target-class="true">
+	    <!-- <aop:aspect id="aspect" ref="interceptoProxy">  
+            <aop:pointcut id="executeAction" expression="execution(* org.loong.*.controller.*(..))"/>  
+              
+            <aop:before method="doBefore"  pointcut-ref="executeAction"/>  
+            <aop:after method="doAfter"  pointcut-ref="executeAction"/>  
+            <aop:around method="doAround"  pointcut-ref="executeAction"/>  
+            <aop:after-returning method="doReturn"  pointcut-ref="executeAction"/>  
+            <aop:after-throwing method="doThrowing" throwing="ex" pointcut-ref="pointUserMgr"/>  
+        </aop:aspect>  -->
+		<aop:pointcut id="aopPointCut" expression="execution(* org.loong.*.*.service.*.impl..*(..))" />
+		<aop:advisor pointcut-ref="aopPointCut" advice-ref="txAdvice" />
+	</aop:config>
+
+
+	<!-- MyBatis -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:org/loong/*/*/dao/*.xml" />
+		<property name="typeAliasesPackage" value="org.loong.*.*.model" />
+	</bean>
+	
+	<!-- scan for mappers and let them be autowired -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="org.loong.*.*.dao" />
+		 <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</bean>
+
+	<!-- <import resource="classpath*:/config/spring/spring-redis.xml" /> -->
+	
+	<!-- 文件上传 -->
+ 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxUploadSize" value="10485760000" />
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+	
+</beans>

@@ -1,0 +1,45 @@
+ul.ztree {
+	margin-top: 10px;
+	border: 1px solid white;
+	background: #E4E9EC;
+	width:220px;
+	height:360px;
+	overflow-y:auto;
+	overflow-x:auto;}
+.ztree li span.button{
+	background-image: url("css/zTreeStyle/img/zTreeStandard1.png");
+}
+.ztree *{
+	font-size:12px
+}
+.ztree li a:hover{
+	background-color:white;
+	text-decoration:none
+}
+.ztree li a.curSelectedNode{
+	border: 1px solid white;
+	background-color:#16AAD8;
+}
+.ztree li a{
+	 display: inline-block;
+	 width: 90%;
+}
+.ztree li span.button.ico_close{
+	background-position: -166px -1px;
+}
+.ztree li span.button.ico_open{
+	background-position: -166px -17px;
+}
+.ztree li span.button.center_open,.ztree li span.button.bottom_open,.ztree li span.button.roots_open{
+	background-position: -166px -67px;
+	position:relative;
+											
+}
+.ztree li span.button.center_close,.ztree li span.button.bottom_close,.ztree li span.button.roots_close{
+	background-position: -166px -78px;
+	position:relative;
+	top:-3px;
+}
+.ztree li span.button.ico_docu{
+	background-position: -166px -35px;
+}

@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<title>出账</title>
+<title>录入数据</title>
 
 <meta name="description" content="A three dimensional and space efficient menu created with JavaScript and CSS 3.">
 <meta name="author" content="Hakim El Hattab">
@@ -20,135 +20,94 @@
 </head>
 <body>
 <%@ include file="main.jsp" %> 
-		<input type="hidden" id="base_url" value="${pageContext.request.contextPath}">
+<input type="hidden" id="base_url" value="${pageContext.request.contextPath}">
 
-		<div class="contents">
+<div class="contents">
 <div id="dialog-content" ms-controller="content">
 	<!-- 详细内容 -->
 	<div class="dialog-center" >
 		<form id="omno11" class="baseinfo" onSubmit="return false">
 			<div class="form-all dialog-form-all">
-			
-			<!-- 选择录入数据的类型 -->
-			<div >
 			<div class="dialog-center-title">
-				<span class="form-title-f" style="font-size: 20px">选择录入数据的类型</span>
+				<span class="form-title-f" style="font-size: 20px">录入数据</span>
 			</div>	
-			<div class="form-content dialog-form-content" style="height: 300px;margin-top: 20px">
-			<label class="form-label"><input type="checkbox"> &nbsp;生活缴费</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<div style="width: 100%;height: 20px"></div>
-			</div>
-			<div class="form-content dialog-form-content">
-				<button class="btn btn-status-select" ms-click="doSubmit" style="float: right;margin-right: 300px">下一步</button>
-			</div>
-			</div>
-			<div style="display: none;">
 		<div class="form-content dialog-form-content">
 				<table class="form-table">
 					<tr class="form-table-tr">
+							<td>
+								<label class="form-label">账单类型:</label>
+							</td>
+							<td>
+								<select class="stext sselect edit-website" id="type" name="type" ms-duplex="sendParams.type">
+								<option value="02.defray">出账</option>
+								<option value="01.income">入账</option>
+								</select>
+							</td>
+						</tr>
+							<tr class="form-table-tr">
 						<td width="100">
-							<span class="form-red">*</span>
-							<label class="form-label">到车日期:</label>
+							<label class="form-label">账单金额:</label>
+						</td>
+						<td width="400">
+							<input type="text" class="form-control detail-input" id="driverName" name="driverName" ms-duplex="sendParams.driverName" maxlength="15" />
+						    元
+						</td>
+					</tr>
+					<tr class="form-table-tr" ms-if="sendParams.type == '01.income' ">
+							<td>
+								<label class="form-label">资金来源:</label>
+							</td>
+							<td>
+								<select class="stext sselect edit-website" id="website" name="website" ms-duplex="sendParams.website">
+									<!-- <option ms-repeat="websiteList" ms-attr-value="{{el.websiteNo}}">{{el.websiteName}}</option>  -->
+								<option>工资</option>
+								</select>
+							</td>
+						</tr>
+						<tr class="form-table-tr" ms-if="sendParams.type == '01.income' ">
+							<td>
+								<label class="form-label">资金流向:</label>
+							</td>
+							<td>
+								<select class="stext sselect edit-website" id="website" name="website" ms-duplex="sendParams.website">
+									<!-- <option ms-repeat="websiteList" ms-attr-value="{{el.websiteNo}}">{{el.websiteName}}</option>  -->
+								<option>现金男</option>
+								</select>
+							</td>
+						</tr>
+					<tr class="form-table-tr" ms-if="sendParams.type == '01.income' ">
+						<td width="100">
+							<label class="form-label">入账日期:</label>
 						</td>
 						<td width="400">
 							<input type="text" ms-duplex="sendParams.buildTime" id="buildTime" name="buildTime" class="stext" readonly="readonly" placeholder="选择日期" value=""/>
 						</td>
-						<td width="120">
-							<span class="form-red"></span>
-							<label class="form-label">发货城市:</label>
-						</td>
-						<td>
-							 <select id="province" name="province" ms-duplex="sendParams.province" style="width: 77px" data-duplex-changed="provinceOnChange">
-     					    <option value="请选择">请选择</option>
-							<option ms-repeat="provinceList" ms-attr-value="{{el.areaCode}}">{{el.areaName}}</option>
-						  </select>
-						   <select id="city" name="city" ms-duplex="sendParams.city" style="width: 77px" data-duplex-changed="cityOnChange">
-						    <option value="请选择">请选择</option>
-							<option ms-repeat="cityList" ms-attr-value="{{el.areaCode}}">{{el.areaName}}</option>
-						  </select>
-						   <select id="area" name="area" ms-duplex="sendParams.area" style="width: 77px">
-						    <option value="请选择">请选择</option>
-	    				   <option ms-repeat="areaList" ms-attr-value="{{el.areaCode}}">{{el.areaName}}</option>
-						  </select>
-						</td>
 					</tr>
-					<tr class="form-table-tr">
-						<td>
-							<span class="form-red">*</span>
-							<label class="form-label">车牌号:</label>
-						</td>
-						<td>
-							<input type="text" class="form-control detail-input edit-vehicleNo" name="vehicleNo" ms-duplex="sendParams.vehicleNo" maxlength="50"/>
-						</td>
-						<td>
-							<span class="form-red">*</span>
-							<label class="form-label">落地网点:</label>
-						</td>
-						<td>
-							<select class="stext sselect edit-website" id="website" name="website" ms-duplex="sendParams.website">
-								<option ms-repeat="websiteList" ms-attr-value="{{el.websiteNo}}">{{el.websiteName}}</option> 
-							</select>
-						</td>
-					</tr>
-					<tr class="form-table-tr">
+						<tr class="form-table-tr">
 						<td width="100">
-							<span class="form-red"></span>
-							<label class="form-label">司机姓名:</label>
+							<label class="form-label">备注:</label>
 						</td>
 						<td width="400">
 							<input type="text" class="form-control detail-input" id="driverName" name="driverName" ms-duplex="sendParams.driverName" maxlength="15" />
 						</td>
-						<td width="120">
-							<span class="form-red">*</span>
-							<label class="form-label">司机手机:</label>
-						</td>
-						<td>
-							<input type="text" class="form-control detail-input edit-driverMobile" id="driverMobile" name="driverMobile" ms-duplex="sendParams.driverMobile" maxlength="11" />
-						</td>
 					</tr>
+				
 				</table>
 			</div>
-			<!-- 款项信息内容 -->
-			 <div class="form-content dialog-form-content">
-				<table class="form-table">
-					<tr class="form-table-tr">
-						<td width="100">
-							<label class="form-label">支付方式:</label>
-						</td>
-						<td width="920">
-							<select class="stext sselect" id="vehicleType" name="vehicleType" ms-duplex="sendParams.vehicleType" ms-change="landingChargesinfo">
-							    <option value="请选择">现金</option> 
-							    <option value="请选择">支付宝男</option> 
-							    <option value="请选择">支付宝女</option> 
-							    <option value="请选择">微信男</option>
-							    <option value="请选择">微信女</option>  
-							</select>
-						</td>
-					</tr>
-					<tr class="form-table-tr">
-						<td width="100">
-							<label class="form-label">卸货费:</label>
-						</td>
-						<td width="920">
-							<input type="text" class="form-control edit-landingCharges" id="landingCharges" name="landingCharges" ms-duplex="sendParams.landingCharges" maxlength="15" value="0" />元
-						</td>
-					</tr>
-				</table>
-			</div> 
+
 			<!-- 操作 -->
 			 <div class="form-content dialog-form-content">
 				<table class="form-table">
 					<tr class="form-table-tr">
 						<td width="400">
-						 <button class="btn btn-status-select" ms-click="doSubmit">提交</button>
-			              <button class="btn btn-reset" ms-click="reSet">重置</button>
+						 <button class="btn btn-status-select" ms-click="doSubmit" ms-if="sendParams.type == '01.income' ">提交</button>
+			              <button class="btn btn-reset" ms-click="reSet" ms-if="sendParams.type != '01.income' ">增加明细</button>
 						</td>
 						<td>
 						</td>
 					</tr>
 				</table>
 			</div> 
-			</div>
 			</div>
 		</form>
 	</div>

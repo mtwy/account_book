@@ -10,4 +10,9 @@ public class EnumConstant {
 	public static final String USER_LEVEL_MASTER = "master"; // 主账户
 	public static final String USER_LEVEL_SECONDARY = "secondary"; // 从属帐号
 	
+	// 账单类型
+	public static final String BILL_TYPE_INCOME = "01.income"; // 入账
+	public static final String BILL_TYPE_DEFRAY = "02.defray"; // 出账
+	public static final String BILL_TYPE_FLAT = "01.flat"; // 平账
+	
 }

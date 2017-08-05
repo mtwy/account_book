@@ -125,4 +125,13 @@
       status = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- =============================================== -->
+  
+  <!-- 获取所有 -->
+  <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_bill_category
+  </select>
 </mapper>

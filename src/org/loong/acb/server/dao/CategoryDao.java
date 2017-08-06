@@ -33,7 +33,7 @@ public interface CategoryDao {
      * @param parameter
      * @return
      */
-    List<Category> selectAllChildById(JSONObject parameter);
+    List<Category> selectAllChildByParentId(JSONObject parameter);
     
     /**
      * 一对多查询所有类别

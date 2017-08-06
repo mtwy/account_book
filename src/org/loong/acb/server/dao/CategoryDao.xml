@@ -150,11 +150,14 @@
     	<if test="type != null and type != ''">
     		type = #{type,jdbcType=VARCHAR} 
     	</if>
+    	<if test="id != null and id != ''">
+    		AND id > #{id,jdbcType=BIGINT}
+    	</if>
     </where>
   </select>
   
   <!-- 根据parentId获取所有子类别 -->
-  <select id="selectAllChildById" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectAllChildByParentId" parameterType="map" resultMap="BaseResultMap">
     select 
     	<include refid="Base_Column_List" />
     from t_category

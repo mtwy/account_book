@@ -164,8 +164,7 @@
     		AND type = #{type,jdbcType=VARCHAR} 
     	</if>
     </where>
-  </select>
-  
+  </select> 
   
   <!-- 一对多关联查询 -->
   	<select id="selectRelationsWithChildren" parameterType="map" resultMap="BaseResultMap1">
@@ -190,6 +189,16 @@
 	    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
 	    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
 	    <result column="status" jdbcType="VARCHAR" property="status" />
-		<collection property="categories" ofType="org.loong.acb.server.model.Category" column="id" select="org.loong.acb.server.dao.CategoryDao.selectAllChildById"></collection>
+		<collection property="categories" ofType="org.loong.acb.server.model.Category" column="id" select="org.loong.acb.server.dao.CategoryDao.selectAllChildByIdWithRelations"></collection>
 	</resultMap>
+	
+	<!-- 根据parentId获取所有子类别  为关联查询特写-->
+	<select id="selectAllChildByIdWithRelations" parameterType="map" resultMap="BaseResultMap">
+	  select 
+	  	<include refid="Base_Column_List" />
+	  from t_category
+	  <where>
+	  	parent_id = #{id,jdbcType=BIGINT}
+	  </where>
+	</select>
 </mapper>

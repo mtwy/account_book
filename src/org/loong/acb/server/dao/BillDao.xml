@@ -5,6 +5,8 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="funds_sources" jdbcType="VARCHAR" property="fundsSources" />
+    <result column="funds_trend" jdbcType="VARCHAR" property="fundsTrend" />
     <result column="pay_method" jdbcType="VARCHAR" property="payMethod" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
@@ -13,7 +15,8 @@
     <result column="status" jdbcType="VARCHAR" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, account, money, pay_method, type, remarks, created_at, updated_at, status
+    id, account, money, funds_sources, funds_trend, pay_method, type, remarks, created_at, 
+    updated_at, status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -27,13 +30,13 @@
   </delete>
   <insert id="insert" parameterType="org.loong.acb.server.model.Bill">
     insert into t_bill (id, account, money, 
-      pay_method, type, remarks, 
-      created_at, updated_at, status
-      )
+      funds_sources, funds_trend, pay_method, 
+      type, remarks, created_at, 
+      updated_at, status)
     values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{money,jdbcType=DECIMAL}, 
-      #{payMethod,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
-      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}
-      )
+      #{fundsSources,jdbcType=VARCHAR}, #{fundsTrend,jdbcType=VARCHAR}, #{payMethod,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
+      #{updatedAt,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="org.loong.acb.server.model.Bill">
     insert into t_bill
@@ -46,6 +49,12 @@
       </if>
       <if test="money != null">
         money,
+      </if>
+      <if test="fundsSources != null">
+        funds_sources,
+      </if>
+      <if test="fundsTrend != null">
+        funds_trend,
       </if>
       <if test="payMethod != null">
         pay_method,
@@ -76,6 +85,12 @@
       <if test="money != null">
         #{money,jdbcType=DECIMAL},
       </if>
+      <if test="fundsSources != null">
+        #{fundsSources,jdbcType=VARCHAR},
+      </if>
+      <if test="fundsTrend != null">
+        #{fundsTrend,jdbcType=VARCHAR},
+      </if>
       <if test="payMethod != null">
         #{payMethod,jdbcType=VARCHAR},
       </if>
@@ -105,6 +120,12 @@
       <if test="money != null">
         money = #{money,jdbcType=DECIMAL},
       </if>
+      <if test="fundsSources != null">
+        funds_sources = #{fundsSources,jdbcType=VARCHAR},
+      </if>
+      <if test="fundsTrend != null">
+        funds_trend = #{fundsTrend,jdbcType=VARCHAR},
+      </if>
       <if test="payMethod != null">
         pay_method = #{payMethod,jdbcType=VARCHAR},
       </if>
@@ -130,6 +151,8 @@
     update t_bill
     set account = #{account,jdbcType=VARCHAR},
       money = #{money,jdbcType=DECIMAL},
+      funds_sources = #{fundsSources,jdbcType=VARCHAR},
+      funds_trend = #{fundsTrend,jdbcType=VARCHAR},
       pay_method = #{payMethod,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       remarks = #{remarks,jdbcType=VARCHAR},

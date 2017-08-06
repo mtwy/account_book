@@ -1,6 +1,7 @@
 package org.loong.acb.wap.controller;
 
-import org.loong.acb.server.service.BillCategoryService;
+import org.loong.acb.server.service.CategoryService;
+import org.loong.acb.system.constant.EnumConstant;
 import org.loong.common.content.RequestContent;
 import org.loong.common.exception.LoongException;
 import org.loong.common.retobj.ReturnPaginateHandle;
@@ -13,24 +14,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.sf.json.JSONObject;
 
-@Controller("WapBillCategoryController")
-@RequestMapping("/wap/billcate")
-public class BillCategoryController {
+@Controller("WapBillController")
+@RequestMapping("/wap/bill")
+public class BillController {
 
 	@Autowired
-	private BillCategoryService billCategoryServiceImpl;
+	private CategoryService billCategoryServiceImpl;
 	
 	/**
 	 * 获取所有
 	 * @return
 	 */
-	@PostMapping(value="/getall", produces="application/json; charset=utf-8")
+	@PostMapping(value="/getallcategory", produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String getAll(){
 		
 		ReturnSimpleHandle handle = null;
 		try {
 			JSONObject parameter = RequestContent.receiveParameter();
+			parameter.put("type", EnumConstant.CATEGORY_TYPE_BILL);
 			handle = billCategoryServiceImpl.getAll(parameter);
 		} catch (LoongException e) {
 			handle = ReturnSimpleHandle.createServerError(e.getMessage());
@@ -45,13 +47,14 @@ public class BillCategoryController {
 	 * 一对多关联查询获取所有
 	 * @return
 	 */
-	@PostMapping(value="/getallwithrelations", produces="application/json; charset=utf-8")
+	@PostMapping(value="/getallcategorywithrelations", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String getAllWithRelations(){
+	public String getAllCategoryWithRelations(){
 		
 		ReturnSimpleHandle handle = null;
 		try {
 			JSONObject parameter = RequestContent.receiveParameter();
+			parameter.put("type", EnumConstant.CATEGORY_TYPE_BILL);
 			handle = billCategoryServiceImpl.getAllWithRelations(parameter);
 		} catch (LoongException e) {
 			handle = ReturnSimpleHandle.createServerError(e.getMessage());

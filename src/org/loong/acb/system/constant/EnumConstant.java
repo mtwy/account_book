@@ -15,4 +15,8 @@ public class EnumConstant {
 	public static final String BILL_TYPE_DEFRAY = "02.defray"; // 出账
 	public static final String BILL_TYPE_FLAT = "01.flat"; // 平账
 	
+	// 类别类型
+	public static final String CATEGORY_TYPE_BILL = "01.bill_category"; // 账单类别
+	public static final String CATEGORY_TYPE_LEDGER = "02.ledger_category"; // 分账类别
+	
 }

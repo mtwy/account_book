@@ -2,9 +2,9 @@ package org.loong.acb.server.service.impl;
 
 import java.util.List;
 
-import org.loong.acb.server.dao.BillCategoryDao;
-import org.loong.acb.server.model.BillCategory;
-import org.loong.acb.server.service.BillCategoryService;
+import org.loong.acb.server.dao.CategoryDao;
+import org.loong.acb.server.model.Category;
+import org.loong.acb.server.service.CategoryService;
 import org.loong.common.exception.LoongException;
 import org.loong.common.retobj.ReturnSimpleHandle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import net.sf.json.JSONObject;
 
 @Service
-public class BillCategoryServiceImpl implements BillCategoryService{
+public class CategoryServiceImpl implements CategoryService{
 
 	@Autowired
-	private BillCategoryDao billCategoryDao;
+	private CategoryDao categoryDao;
 	
 	/**
 	 * 获取所有
@@ -26,7 +26,7 @@ public class BillCategoryServiceImpl implements BillCategoryService{
 		
 		ReturnSimpleHandle handle = ReturnSimpleHandle.createHandle();
 		
-		List<BillCategory> data = billCategoryDao.selectAll(parameter);
+		List<Category> data = categoryDao.selectAll(parameter);
 		
 		handle.setData(data);
 		return handle;
@@ -40,7 +40,7 @@ public class BillCategoryServiceImpl implements BillCategoryService{
 
 		ReturnSimpleHandle handle = ReturnSimpleHandle.createHandle();
 		
-		List<BillCategory> data = billCategoryDao.selectRelationsWithChildren(parameter);
+		List<Category> data = categoryDao.selectRelationsWithChildren(parameter);
 		
 		handle.setData(data);
 		return handle;

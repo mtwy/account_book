@@ -10,6 +10,10 @@ public class Bill {
 
     private BigDecimal money;
 
+    private String fundsSources;
+
+    private String fundsTrend;
+
     private String payMethod;
 
     private String type;
@@ -44,6 +48,22 @@ public class Bill {
 
     public void setMoney(BigDecimal money) {
         this.money = money;
+    }
+
+    public String getFundsSources() {
+        return fundsSources;
+    }
+
+    public void setFundsSources(String fundsSources) {
+        this.fundsSources = fundsSources;
+    }
+
+    public String getFundsTrend() {
+        return fundsTrend;
+    }
+
+    public void setFundsTrend(String fundsTrend) {
+        this.fundsTrend = fundsTrend;
     }
 
     public String getPayMethod() {

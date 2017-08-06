@@ -5,7 +5,7 @@ import org.loong.common.retobj.ReturnSimpleHandle;
 
 import net.sf.json.JSONObject;
 
-public interface BillCategoryService {
+public interface CategoryService {
 
 	/**
 	 * 获取所有

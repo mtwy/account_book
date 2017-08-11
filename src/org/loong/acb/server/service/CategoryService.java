@@ -22,4 +22,12 @@ public interface CategoryService {
 	 */
 	ReturnSimpleHandle getAllWithRelations(JSONObject parameter) throws LoongException;
 
+	/**
+	 * 入账
+	 * @param parameter
+	 * @return
+	 * @throws LoongException
+	 */
+	ReturnSimpleHandle ruZhang(JSONObject parameter) throws LoongException;
+
 }

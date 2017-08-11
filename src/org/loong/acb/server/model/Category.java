@@ -1,7 +1,6 @@
 package org.loong.acb.server.model;
 
 import java.util.Date;
-import java.util.List;
 
 public class Category {
     private Long id;
@@ -21,8 +20,8 @@ public class Category {
     private Date updatedAt;
 
     private String status;
-    
-    private List<Category> categories;
+
+    private Byte delFlag;
 
     public Long getId() {
         return id;
@@ -96,11 +95,11 @@ public class Category {
         this.status = status;
     }
 
-	public List<Category> getCategories() {
-		return categories;
-	}
+    public Byte getDelFlag() {
+        return delFlag;
+    }
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
-	}
+    public void setDelFlag(Byte delFlag) {
+        this.delFlag = delFlag;
+    }
 }

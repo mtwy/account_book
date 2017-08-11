@@ -19,6 +19,8 @@ public class Login {
 
     private String status;
 
+    private Byte delFlag;
+
     public Long getId() {
         return id;
     }
@@ -81,5 +83,13 @@ public class Login {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Byte getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Byte delFlag) {
+        this.delFlag = delFlag;
     }
 }

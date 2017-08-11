@@ -79,6 +79,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService{
 		login.setLevel(EnumConstant.LOGIN_LEVEL_NORMAL);
 		login.setCreatedAt(curDate);
 		login.setUpdatedAt(curDate);
+		login.setDelFlag(false);
 		loginDao.insertSelective(login);
 		
 		User user = new User();

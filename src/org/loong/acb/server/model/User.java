@@ -23,7 +23,7 @@ public class User {
 
     private String status;
 
-    private Byte delFlag;
+    private Boolean delFlag;
 
     public Long getId() {
         return id;
@@ -105,11 +105,11 @@ public class User {
         this.status = status;
     }
 
-    public Byte getDelFlag() {
+    public Boolean getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Byte delFlag) {
+    public void setDelFlag(Boolean delFlag) {
         this.delFlag = delFlag;
     }
 }

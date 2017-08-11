@@ -12,7 +12,7 @@
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
     <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
     <result column="status" jdbcType="VARCHAR" property="status" />
-    <result column="del_flag" jdbcType="TINYINT" property="delFlag" />
+    <result column="del_flag" jdbcType="BIT" property="delFlag" />
   </resultMap>
   <sql id="Base_Column_List">
     id, thumb, account, birthday, level, depend_account, remarks, created_at, updated_at, 
@@ -36,7 +36,7 @@
     values (#{id,jdbcType=BIGINT}, #{thumb,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
       #{birthday,jdbcType=TIMESTAMP}, #{level,jdbcType=VARCHAR}, #{dependAccount,jdbcType=VARCHAR}, 
       #{remarks,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR}, #{delFlag,jdbcType=TINYINT})
+      #{status,jdbcType=VARCHAR}, #{delFlag,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="org.loong.acb.server.model.User">
     insert into t_user
@@ -107,7 +107,7 @@
         #{status,jdbcType=VARCHAR},
       </if>
       <if test="delFlag != null">
-        #{delFlag,jdbcType=TINYINT},
+        #{delFlag,jdbcType=BIT},
       </if>
     </trim>
   </insert>
@@ -142,7 +142,7 @@
         status = #{status,jdbcType=VARCHAR},
       </if>
       <if test="delFlag != null">
-        del_flag = #{delFlag,jdbcType=TINYINT},
+        del_flag = #{delFlag,jdbcType=BIT},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -158,7 +158,7 @@
       created_at = #{createdAt,jdbcType=TIMESTAMP},
       updated_at = #{updatedAt,jdbcType=TIMESTAMP},
       status = #{status,jdbcType=VARCHAR},
-      del_flag = #{delFlag,jdbcType=TINYINT}
+      del_flag = #{delFlag,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
   

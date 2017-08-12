@@ -87,6 +87,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService{
 		user.setLevel(EnumConstant.USER_LEVEL_MASTER);
 		user.setCreatedAt(curDate);
 		user.setUpdatedAt(curDate);
+		user.setDelFlag(false);
 		userDao.insertSelective(user);
 		
 		Asset asset = new Asset();
@@ -94,6 +95,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService{
 		asset.setBalance(new BigDecimal(0));
 		asset.setCreatedAt(curDate);
 		asset.setUpdatedAt(curDate);
+		asset.setDelFlag(false);
 		assetDao.insertSelective(asset);
 		
 		handle = login(parameter);

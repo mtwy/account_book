@@ -1,6 +1,6 @@
 package org.loong.acb.wap.controller;
 
-import org.loong.acb.server.service.CategoryService;
+import org.loong.acb.server.service.BillService;
 import org.loong.common.content.RequestContent;
 import org.loong.common.exception.LoongException;
 import org.loong.common.retobj.ReturnPaginateHandle;
@@ -18,7 +18,7 @@ import net.sf.json.JSONObject;
 public class BillController {
 
 	@Autowired
-	private CategoryService categoryServiceImpl;
+	private BillService billServiceImpl;
 	
 	/**
 	 * 入账
@@ -31,7 +31,7 @@ public class BillController {
 		ReturnSimpleHandle handle = null;
 		try {
 			JSONObject parameter = RequestContent.receiveParameter();
-			handle = categoryServiceImpl.ruZhang(parameter);
+			handle = billServiceImpl.ruZhang(parameter);
 		} catch (LoongException e) {
 			handle = ReturnSimpleHandle.createServerError(e.getMessage());
 		}  catch (Exception e) {

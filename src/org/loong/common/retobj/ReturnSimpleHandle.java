@@ -3,11 +3,14 @@ package org.loong.common.retobj;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.text.SimpleDateFormat;
 
 import org.apache.commons.logging.Log;
 import org.loong.common.constant.SystemConstant;
 
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
+import net.sf.json.processors.JsonValueProcessor;
 
 public class ReturnSimpleHandle implements Serializable {
 
@@ -71,7 +74,7 @@ public class ReturnSimpleHandle implements Serializable {
 		handle.setCode(SystemConstant.MESSAGE_SERVER_CODE_Z00);
 		return handle;
 	}
-	
+
 	/**
 	 * 创建一个返回服务端异常对象
 	 * 
@@ -128,13 +131,6 @@ public class ReturnSimpleHandle implements Serializable {
 		return string;
 	}
 
-	public String toJson() {
-		JSONObject jsonObject = JSONObject.fromObject(this);
-		jsonObject.remove("debugMessage");
-		String json = jsonObject.toString();
-		return json;
-	}
-
 	public static ReturnSimpleHandle createServerError() {
 		ReturnSimpleHandle handle = new ReturnSimpleHandle();
 		handle.setMessage(SystemConstant.ERROR_MESSAGE_SERVER_F01);
@@ -149,5 +145,48 @@ public class ReturnSimpleHandle implements Serializable {
 		handle.setIsSuccess(false);
 		handle.setCode(SystemConstant.MESSAGE_SERVER_CODE_Z00);
 		return handle;
+	}
+
+	public String toJson() {
+		JsonConfig jf = new JsonConfig();
+		jf.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor("yyyy-MM-dd HH:mm:ss"));
+		JSONObject jsonObject = JSONObject.fromObject(this, jf);
+		jsonObject.remove("debugMessage");
+		String json = jsonObject.toString();
+		return json;
+	}
+	
+	/**
+	 * JSON 日期格式化 辅助类
+	 * @author 83624
+	 *
+	 */
+	class DateJsonValueProcessor implements JsonValueProcessor {
+
+		private String format;
+
+		public DateJsonValueProcessor(String format) {
+			this.format = format;
+		}
+
+		public Object processArrayValue(Object value, JsonConfig jsonConfig) {
+			return null;
+		}
+
+		public Object processObjectValue(String key, Object value, JsonConfig jsonConfig) {
+			if (value == null) {
+				return "";
+			}
+			if (value instanceof java.sql.Timestamp) {
+				String str = new SimpleDateFormat(format).format((java.sql.Timestamp) value);
+				return str;
+			}
+			if (value instanceof java.util.Date) {
+				String str = new SimpleDateFormat(format).format((java.util.Date) value);
+				return str;
+			}
+
+			return value.toString();
+		}
 	}
 }

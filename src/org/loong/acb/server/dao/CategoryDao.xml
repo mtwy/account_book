@@ -161,8 +161,8 @@
     	<if test="type != null and type != ''">
     		type = #{type,jdbcType=VARCHAR} 
     	</if>
-    	<if test="id != null and id != ''">
-    		AND id > #{id,jdbcType=BIGINT}
+    	<if test="updatedAt != null and updatedAt != ''">
+    		<![CDATA[AND updated_at > DATE_FORMAT(#{updatedAt,jdbcType=VARCHAR}, '%y-%m-%d %H:%i:%s')]]>
     	</if>
     </where>
   </select>

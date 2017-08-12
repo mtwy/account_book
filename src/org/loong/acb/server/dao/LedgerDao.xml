@@ -140,10 +140,23 @@
   </update>
   
   <!-- ======================================= -->
+  
   <!-- 通过帐号获取所有分账 -->
   <select id="selectAllByAccount" parameterType="map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from t_ledger
-    where account = #{account,jdbcType=VARCHAR}
+    where 
+    	del_flag = '0'
+    	AND account = #{account,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 根据分账类别查找用户分账信息 -->
+  <select id="selectByCateId" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from t_ledger
+    where
+    	del_flag = '0'
+    	AND account = #{account,jdbcType=VARCHAR}
+    	AND cate_id = #{cateId,jdbcType=BIGINT}
   </select>
 </mapper>

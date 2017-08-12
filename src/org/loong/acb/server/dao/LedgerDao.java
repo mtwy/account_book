@@ -27,4 +27,11 @@ public interface LedgerDao {
      * @return
      */
     List<Ledger> selectAllByAccount(JSONObject parameter);
+
+    /**
+     * 根据分账类别查找用户分账信息
+     * @param params
+     * @return
+     */
+	Ledger selectByCateId(JSONObject params);
 }

@@ -5,7 +5,7 @@ import org.loong.common.retobj.ReturnSimpleHandle;
 
 import net.sf.json.JSONObject;
 
-public interface CategoryService {
+public interface BillService {
 
 	/**
 	 * 获取所有
@@ -16,9 +16,11 @@ public interface CategoryService {
 	ReturnSimpleHandle getAll(JSONObject parameter) throws LoongException;
 
 	/**
-	 * 一对多关联查询获取所有
+	 * 入账
 	 * @param parameter
 	 * @return
+	 * @throws LoongException
 	 */
-	ReturnSimpleHandle getAllWithRelations(JSONObject parameter) throws LoongException;
+	ReturnSimpleHandle ruZhang(JSONObject parameter) throws LoongException;
+
 }

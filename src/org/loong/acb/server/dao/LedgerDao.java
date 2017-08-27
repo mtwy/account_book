@@ -33,5 +33,5 @@ public interface LedgerDao {
      * @param params
      * @return
      */
-	Ledger selectByCateId(JSONObject params);
+	Ledger selectByName(JSONObject params);
 }

@@ -85,6 +85,7 @@ public class LoginRegisterServiceImpl implements LoginRegisterService{
 		User user = new User();
 		user.setAccount(account);
 		user.setLevel(EnumConstant.USER_LEVEL_MASTER);
+		user.setBirthday(curDate);
 		user.setCreatedAt(curDate);
 		user.setUpdatedAt(curDate);
 		user.setDelFlag(false);

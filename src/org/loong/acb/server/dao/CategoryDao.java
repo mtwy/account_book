@@ -41,4 +41,10 @@ public interface CategoryDao {
      * @return
      */
     List<Category> selectRelationsWithChildren(JSONObject parameter);
+
+    /**
+     * 根据名称获取类别
+     * @param param
+     */
+    Category selectByName(JSONObject param);
 }

@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="org.loong.acb.server.model.Ledger">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="account" jdbcType="VARCHAR" property="account" />
-    <result column="cate_id" jdbcType="BIGINT" property="cateId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="balance" jdbcType="DECIMAL" property="balance" />
     <result column="remarks" jdbcType="VARCHAR" property="remarks" />
     <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
@@ -13,7 +13,7 @@
     <result column="del_flag" jdbcType="BIT" property="delFlag" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, account, cate_id, balance, remarks, created_at, updated_at, status, del_flag
+    id, account, name, balance, remarks, created_at, updated_at, status, del_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
@@ -26,11 +26,11 @@
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="org.loong.acb.server.model.Ledger">
-    insert into t_ledger (id, account, cate_id, 
+    insert into t_ledger (id, account, name, 
       balance, remarks, created_at, 
       updated_at, status, del_flag
       )
-    values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{cateId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=BIGINT}, #{account,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{balance,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, 
       #{updatedAt,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{delFlag,jdbcType=BIT}
       )
@@ -44,8 +44,8 @@
       <if test="account != null">
         account,
       </if>
-      <if test="cateId != null">
-        cate_id,
+      <if test="name != null">
+        name,
       </if>
       <if test="balance != null">
         balance,
@@ -73,8 +73,8 @@
       <if test="account != null">
         #{account,jdbcType=VARCHAR},
       </if>
-      <if test="cateId != null">
-        #{cateId,jdbcType=BIGINT},
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
       </if>
       <if test="balance != null">
         #{balance,jdbcType=DECIMAL},
@@ -102,8 +102,8 @@
       <if test="account != null">
         account = #{account,jdbcType=VARCHAR},
       </if>
-      <if test="cateId != null">
-        cate_id = #{cateId,jdbcType=BIGINT},
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="balance != null">
         balance = #{balance,jdbcType=DECIMAL},
@@ -129,7 +129,7 @@
   <update id="updateByPrimaryKey" parameterType="org.loong.acb.server.model.Ledger">
     update t_ledger
     set account = #{account,jdbcType=VARCHAR},
-      cate_id = #{cateId,jdbcType=BIGINT},
+      name = #{name,jdbcType=VARCHAR},
       balance = #{balance,jdbcType=DECIMAL},
       remarks = #{remarks,jdbcType=VARCHAR},
       created_at = #{createdAt,jdbcType=TIMESTAMP},
@@ -151,12 +151,12 @@
   </select>
   
   <!-- 根据分账类别查找用户分账信息 -->
-  <select id="selectByCateId" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByName" parameterType="map" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" />
     from t_ledger
     where
     	del_flag = '0'
     	AND account = #{account,jdbcType=VARCHAR}
-    	AND cate_id = #{cateId,jdbcType=BIGINT}
+    	AND name = #{name,jdbcType=VARCHAR}
   </select>
 </mapper>

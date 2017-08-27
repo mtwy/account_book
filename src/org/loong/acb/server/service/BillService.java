@@ -21,6 +21,28 @@ public interface BillService {
 	 * @return
 	 * @throws LoongException
 	 */
-	ReturnSimpleHandle ruZhang(JSONObject parameter) throws LoongException;
+	ReturnSimpleHandle income(JSONObject parameter) throws LoongException;
 
+	/**
+	 * 出账
+	 * @param parameter
+	 * @return
+	 */
+	ReturnSimpleHandle defray(JSONObject parameter) throws LoongException;
+
+	/**
+	 * 获取最新账单
+	 * @param parameter
+	 * @return
+	 * @throws LoongException
+	 */
+	ReturnSimpleHandle getAllUpToDateBills(JSONObject parameter) throws LoongException;
+
+	/**
+	 * 平账
+	 * @param parameter
+	 * @return
+	 * @throws LoongException
+	 */
+	ReturnSimpleHandle flat(JSONObject parameter) throws LoongException;
 }

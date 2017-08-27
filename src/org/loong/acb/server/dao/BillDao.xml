@@ -174,4 +174,24 @@
       del_flag = #{delFlag,jdbcType=BIT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  
+  <!-- ========================================= -->
+  
+  <!-- 获取所有 -->
+  <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_bill
+    <where>
+    	del_flag = '0'
+    	AND account = #{account,jdbcType=VARCHAR}
+    	<if test="updatedAt != null and updatedAt != ''">
+    		<![CDATA[AND updated_at > DATE_FORMAT(#{updatedAt,jdbcType=VARCHAR}, '%y-%m-%d %H:%i:%s')]]>
+    	</if>
+    </where>
+    ORDER BY updated_at DESC
+    <if test="start != null and pageCount != null">
+    LIMIT #{start,jdbcType=INTEGER}, #{pageCount,jdbcType=INTEGER}
+    </if>
+  </select>
 </mapper>

@@ -15,4 +15,12 @@ public interface LedgerService {
 	 */
 	ReturnSimpleHandle getAllByAccount(JSONObject parameter) throws LoongException;
 
+	/**
+	 * 添加账户
+	 * @param parameter
+	 * @return
+	 * @throws LoongException
+	 */
+	ReturnSimpleHandle addLedger(JSONObject parameter) throws LoongException;
+
 }

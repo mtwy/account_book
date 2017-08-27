@@ -8,7 +8,7 @@ public class Ledger {
 
     private String account;
 
-    private Long cateId;
+    private String name;
 
     private BigDecimal balance;
 
@@ -38,12 +38,12 @@ public class Ledger {
         this.account = account;
     }
 
-    public Long getCateId() {
-        return cateId;
+    public String getName() {
+        return name;
     }
 
-    public void setCateId(Long cateId) {
-        this.cateId = cateId;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public BigDecimal getBalance() {

@@ -132,6 +132,8 @@
     select 
     <include refid="Base_Column_List" />
     from t_asset
-    where account = #{account,jdbcType=VARCHAR}
+    where 
+    	del_flag = '0'
+    	AND account = #{account,jdbcType=VARCHAR}
   </select>
 </mapper>

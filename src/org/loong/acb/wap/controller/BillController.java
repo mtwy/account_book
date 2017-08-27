@@ -24,14 +24,77 @@ public class BillController {
 	 * 入账
 	 * @return
 	 */
-	@PostMapping(value="/ruzhang", produces="application/json; charset=utf-8")
+	@PostMapping(value="/income", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String ruZhang(){
+	public String income(){
 		
 		ReturnSimpleHandle handle = null;
 		try {
 			JSONObject parameter = RequestContent.receiveParameter();
-			handle = billServiceImpl.ruZhang(parameter);
+			handle = billServiceImpl.income(parameter);
+		} catch (LoongException e) {
+			handle = ReturnSimpleHandle.createServerError(e.getMessage());
+		}  catch (Exception e) {
+			e.printStackTrace();
+			handle = ReturnPaginateHandle.createServerError();
+		}
+		return handle.toJson();
+	}
+	
+	/**
+	 * 出账
+	 * @return
+	 */
+	@PostMapping(value="/defray", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String defray(){
+		
+		ReturnSimpleHandle handle = null;
+		try {
+			JSONObject parameter = RequestContent.receiveParameter();
+			handle = billServiceImpl.defray(parameter);
+		} catch (LoongException e) {
+			handle = ReturnSimpleHandle.createServerError(e.getMessage());
+		}  catch (Exception e) {
+			e.printStackTrace();
+			handle = ReturnPaginateHandle.createServerError();
+		}
+		return handle.toJson();
+	}
+	
+	/**
+	 * 平账
+	 * @return
+	 */
+	@PostMapping(value="/flat", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String flat(){
+		
+		ReturnSimpleHandle handle = null;
+		try {
+			JSONObject parameter = RequestContent.receiveParameter();
+			handle = billServiceImpl.flat(parameter);
+		} catch (LoongException e) {
+			handle = ReturnSimpleHandle.createServerError(e.getMessage());
+		}  catch (Exception e) {
+			e.printStackTrace();
+			handle = ReturnPaginateHandle.createServerError();
+		}
+		return handle.toJson();
+	}
+	
+	/**
+	 * 获取最新账单
+	 * @return
+	 */
+	@PostMapping(value="/getalluptodatebills", produces="application/json; charset=utf-8")
+	@ResponseBody
+	public String getalluptodatebills(){
+		
+		ReturnSimpleHandle handle = null;
+		try {
+			JSONObject parameter = RequestContent.receiveParameter();
+			handle = billServiceImpl.getAllUpToDateBills(parameter);
 		} catch (LoongException e) {
 			handle = ReturnSimpleHandle.createServerError(e.getMessage());
 		}  catch (Exception e) {

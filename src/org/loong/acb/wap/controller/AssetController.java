@@ -1,6 +1,6 @@
 package org.loong.acb.wap.controller;
 
-import org.loong.acb.server.service.LedgerService;
+import org.loong.acb.server.service.AssetService;
 import org.loong.common.content.RequestContent;
 import org.loong.common.exception.LoongException;
 import org.loong.common.retobj.ReturnPaginateHandle;
@@ -13,46 +13,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.sf.json.JSONObject;
 
-@Controller("WapLedgerController")
-@RequestMapping("/wap/ledger")
-public class LedgerController {
+@Controller("WapAssetController")
+@RequestMapping("/wap/asset")
+public class AssetController {
 
 	@Autowired
-	private LedgerService ledgerServiceImpl;
+	private AssetService assetServiceImpl;
 	
 	/**
-	 * 添加账户
+	 * 获取最新资产
 	 * @return
 	 */
-	@PostMapping(value="/addledger", produces="application/json; charset=utf-8")
+	@PostMapping(value="/getuptodateasset", produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String addLedger(){
+	public String getUpToDateAsset(){
 		
 		ReturnSimpleHandle handle = null;
 		try {
 			JSONObject parameter = RequestContent.receiveParameter();
-			handle = ledgerServiceImpl.addLedger(parameter);
-		} catch (LoongException e) {
-			handle = ReturnSimpleHandle.createServerError(e.getMessage());
-		}  catch (Exception e) {
-			e.printStackTrace();
-			handle = ReturnPaginateHandle.createServerError();
-		}
-		return handle.toJson();
-	}
-	
-	/**
-	 * 根据帐号获取所有
-	 * @return
-	 */
-	@PostMapping(value="/getallbyaccount", produces="application/json; charset=utf-8")
-	@ResponseBody
-	public String getAllByAccount(){
-		
-		ReturnSimpleHandle handle = null;
-		try {
-			JSONObject parameter = RequestContent.receiveParameter();
-			handle = ledgerServiceImpl.getAllByAccount(parameter);
+			handle = assetServiceImpl.getUpToDateAsset(parameter);
 		} catch (LoongException e) {
 			handle = ReturnSimpleHandle.createServerError(e.getMessage());
 		}  catch (Exception e) {
